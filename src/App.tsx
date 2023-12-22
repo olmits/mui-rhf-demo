@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes, redirect } from 'react-router-dom';
+import { StyledEngineProvider } from '@mui/material/styles';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Layout from './components/Layout';
+import SimpleFormPage from './pages/SimpleFormPage';
+import ComplexFormPage from './pages/ComplexFormPage';
+
+const App = () => (
+  <StyledEngineProvider injectFirst>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<SimpleFormPage />} />
+        <Route path="anotherForm" element={<ComplexFormPage />} />
+        <Route
+          path="*"
+          action={() => redirect("/")}
+        />
+      </Route>
+    </Routes>
+  </StyledEngineProvider>
+)
 
 export default App;
